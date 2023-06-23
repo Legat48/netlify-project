@@ -15,17 +15,7 @@
       </span>
     </v-btn>
     <div class="footer__wrap">
-      <BaseProgress class="footer__progress" :step="$store.getters.getStatusApp" :total="3" :color="'109CF8'" :size="60" />
-      <a
-        class="footer__link"
-        target="_blank"
-        href="https://ranks.pro/persondata"
-      >
-        Отправляя данные вы соглашаетесь
-        <span>
-          с политикой конфиденциальности
-        </span>
-      </a>
+      <BaseProgress class="footer__progress" :step="$store.getters.getStatusApp" :total="2" :color="'109CF8'" :size="60" />
     </div>
 
     <v-btn

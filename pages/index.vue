@@ -5,10 +5,8 @@
       <div class="app__wrap">
         <BaseHeader class="app__header" />
         <div class="app__content-wrap">
-          <FirstStep v-show="$store.getters.getStatusApp === 1" />
-          <SecondStep v-show="$store.getters.getStatusApp === 2" />
-          <!-- <ThirdStep v-show="$store.getters.getStatusApp === 3" /> -->
-          <!-- <FourthStep v-show="$store.getters.getStatusApp === 4" /> -->
+          <FirstStep v-if="$store.getters.getStatusApp === 1" />
+          <SecondStep v-else />
         </div>
         <BaseFooter v-if="$store.getters.getStatusApp !== 4" class="app__footer" />
       </div>
@@ -23,19 +21,6 @@ export default {
     }
   },
   computed: {
-    current () {
-      let value
-      if (this.$store.getters.getStatusApp === 2) {
-        value = 'SecondStep'
-      } else if (this.$store.getters.getStatusApp === 3) {
-        value = 'ThirdStep'
-      } else if (this.$store.getters.getStatusApp === 4) {
-        value = 'FourthStep'
-      } else {
-        value = 'FirstStep'
-      }
-      return value
-    }
   },
   mounted () {
 

@@ -1,5 +1,3 @@
-// import i18n from './static/localization' // объект с текстами на разных языках
-
 export default {
   ssr: true,
 
@@ -50,10 +48,10 @@ export default {
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
-    true: true,
-    dirs: [
-      '~/components'
-    ]
+    true: true
+    // dirs: [
+    //   '~/components'
+    // ]
   },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -78,7 +76,8 @@ export default {
     '@nuxtjs/axios'
     // '@nuxtjs/i18n'
   ],
-  plugins: [],
+  plugins: [
+  ],
 
   publicRuntimeConfig: {
   },
@@ -127,6 +126,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend (config) {
+      config.module.rules.push({
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /(node_modules)/
+      })
+    }
   }
   // Locales /импорт текстов
   // i18n

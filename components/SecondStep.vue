@@ -1,109 +1,89 @@
 <template>
   <div class="test">
-    <h2 class="test__title">
-      СУММА   ВАШЕГО   ПОРТФЕЛЯ   АКЦИЙ?
-    </h2>
-    <div class="test__list">
-      <button
-        v-for="item in testItem"
-        :key="item.id"
-        class="test__btn btn"
-        @click.prevent="changeСhoice(item.id)"
-      >
-        <div
-          class="test__img"
-        >
-          <img :class="{'test__icon_active': item.id === itemId}" class="test__icon" :src="require(`~/assets/images/daw.svg`)">
-        </div>
-        <p class="test__text" style="text-align: start;">
-          {{ item.text }}
-        </p>
-      </button>
-    </div>
+    <canvas ref="chartCanvas" />
   </div>
 </template>
 
 <script>
-import testItem from '~/helpers/testItem'
+import Chart from 'chart.js'
+
 export default {
   data () {
     return {
-      testItem: testItem.testItem2
+      chart: null,
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      },
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Values',
+            data: [],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)'
+          }
+        ]
+      }
     }
   },
-  computed: {
-    itemId () {
-      return this.$store.getters.getDeskTwo
-    }
+  mounted () {
+    this.$nextTick(() => {
+      this.createChart()
+      this.startSimulation()
+    })
   },
   methods: {
-    changeСhoice (id) {
-      this.$store.commit('setDeskTwo', id)
+    createChart () {
+      const ctx = this.$refs.chartCanvas.getContext('2d')
+      this.chart = new Chart(ctx, {
+        type: 'line',
+        data: this.chartData,
+        options: this.chartOptions
+      })
+    },
+    startSimulation () {
+      setInterval(() => {
+        const newValue = this.generateValue()
+        this.updateChart(newValue)
+        this.checkConditions(newValue)
+      }, 2000)
+    },
+    generateValue () {
+      const { min, max, jump } = this.$store.state
+      const random = Math.random()
+      let newValue
+
+      if (random < 0.8) {
+        newValue = Math.random() * (max - min) + min
+      } else if (random < 0.9) {
+        newValue = Math.random() * (max - jump - min) + (max - jump)
+      } else {
+        newValue = Math.random() * (jump - min) + min
+      }
+
+      return newValue
+    },
+    updateChart (newValue) {
+      const time = new Date().toLocaleTimeString()
+      this.chart.data.labels.push(time)
+      this.chart.data.datasets[0].data.push(newValue)
+      this.chart.update()
+    },
+    checkConditions (newValue) {
+      const { min, max, jump } = this.$store.state
+
+      if (Math.abs(newValue - min) > jump || Math.abs(newValue - max) > jump) {
+        console.error('Warning: Value exceeded jump range')
+      }
     }
   }
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .test {
   width: 100%;
-  &__title {
-    margin-bottom: sizeIncr(22, 44);
-    word-spacing: sizeIncr(2, 5);
-    width: 100%;
-    text-align: center;
-    font-family: 'DelaGothicOne';
-    font-size: sizeIncr(12, 20);
-    line-height: 140%;
-    text-transform: uppercase;
-    color: var(--color-text-1) !important;
-  }
-  &__list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    @media (min-width: 768px) {
-      flex-direction: row;
-      align-items: start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-  }
-  &__btn {
-    display: flex;
-    align-items: center;
-    margin-bottom: sizeIncr(13, 20);
-    width: 100%;
-    @media (min-width: 768px) {
-      padding-left: sizeIncr(40, 120);
-      width: 48%;
-    }
-  }
-  &__img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: sizeIncr(13, 20);
-    border: 2px solid var(--color-border-2);
-    border-radius: 105px;
-    width: 26px;
-    height: 26px;
-  }
-  &__icon {
-    width: 26px;
-    height: 26px;
-    opacity: 0;
-    @include transition;
-    &_active {
-      opacity: 1;
-    }
-  }
-  &__text {
-    margin-bottom: 0;
-    font-weight: 600;
-    font-size: sizeIncr(14, 18);
-    color: var(--color-text-1) !important;
-    line-height: 120%;
-  }
 }
 </style>

@@ -17,18 +17,20 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/i18n": "^7.3.0",
     "@nuxtjs/yandex-metrika": "^1.4.0",
+    "chart.js": "^4.3.0",
     "core-js": "^3.25.3",
     "flag-icons": "^6.6.6",
     "netlify": "^13.0.2",
     "nuxt": "^2.15.8",
     "nuxt-stripe-module": "^3.2.0",
     "uuid": "^9.0.0",
-    "vue": "^2.7.10",
+    "vue": "^2.7.14",
+    "vue-chartjs": "^5.2.0",
     "vue-infinite-scroll": "^2.0.2",
+    "vue-ripple-directive": "^2.0.1",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
-    "vuetify": "^2.6.10",
-    "vue-ripple-directive": "^2.0.1"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
