@@ -7,8 +7,8 @@
         <div class="app__content-wrap">
           <FirstStep v-show="$store.getters.getStatusApp === 1" />
           <SecondStep v-show="$store.getters.getStatusApp === 2" />
-          <ThirdStep v-show="$store.getters.getStatusApp === 3" />
-          <FourthStep v-show="$store.getters.getStatusApp === 4" />
+          <!-- <ThirdStep v-show="$store.getters.getStatusApp === 3" /> -->
+          <!-- <FourthStep v-show="$store.getters.getStatusApp === 4" /> -->
         </div>
         <BaseFooter v-if="$store.getters.getStatusApp !== 4" class="app__footer" />
       </div>
