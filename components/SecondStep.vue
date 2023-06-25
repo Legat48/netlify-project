@@ -163,7 +163,7 @@ export default {
     generateRandomValue (previousValue) {
       const delta = (this.getMax * 1.1 - this.getMin * 0.8) / 2
       if (!previousValue) {
-        return this.getMin + delta
+        return Math.round(this.getMin + delta)
       }
 
       const probability = Math.random()
