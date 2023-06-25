@@ -25,6 +25,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
 export default {
   components: {
     VueApexCharts: () => import('vue-apexcharts')
@@ -36,7 +37,10 @@ export default {
       elapsedTime: '',
       chartOptions: {
         chart: {
-          id: 'vuechart-example'
+          id: 'vuechart-example',
+          toolbar: {
+            show: false // Скрыть кнопки управления в верхнем левом углу
+          }
         },
         xaxis: {
           categories: []
@@ -44,27 +48,45 @@ export default {
         yaxis: {
           min: this.getMin,
           max: this.getMax,
-          plotLines: [
-            {
-              value: this.getMin,
-              color: '#FF0000',
-              width: 1,
-              label: {
-                text: 'Минимальное значение'
-              }
-            },
-            {
-              value: this.getMax,
-              color: '#FF0000',
-              width: 1,
-              label: {
-                text: 'Максимальное значение'
-              }
+          forceNiceScale: true,
+          tickAmount: 4,
+          labels: {
+            formatter: function (value) {
+              return value.toFixed(0)
             }
-          ]
+          },
+          annotations: {
+            yaxis: [
+              {
+                y: this.getMin,
+                borderColor: '#FF0000',
+                borderWidth: 1,
+                label: {
+                  text: 'Минимальное значение'
+                }
+              },
+              {
+                y: this.getMax,
+                borderColor: '#FF0000',
+                borderWidth: 1,
+                label: {
+                  text: 'Максимальное значение'
+                }
+              }
+            ]
+          }
+        },
+        stroke: {
+          curve: 'smooth'
         },
         markers: {
           size: 0
+        },
+        dataLabels: {
+          enabled: false // Скрыть метки данных на графике
+        },
+        tooltip: {
+          enabled: false // Скрыть всплывающие подсказки
         }
       },
       series: [
