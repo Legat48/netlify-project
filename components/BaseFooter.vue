@@ -127,6 +127,9 @@ export default {
       }
     }
   }
+  &__btn-text {
+    color: var(--color-text-2);
+  }
   &__text-submit {
     color: #fff;
     display: none;
