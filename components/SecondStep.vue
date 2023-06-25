@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   components: {
     VueApexCharts: () => import('vue-apexcharts')
@@ -41,8 +42,26 @@ export default {
           categories: []
         },
         yaxis: {
-          min: 0,
-          max: 100
+          min: this.getMin,
+          max: this.getMax,
+          plotLines: [
+            {
+              value: this.getMin,
+              color: '#FF0000',
+              width: 1,
+              label: {
+                text: 'Минимальное значение'
+              }
+            },
+            {
+              value: this.getMax,
+              color: '#FF0000',
+              width: 1,
+              label: {
+                text: 'Максимальное значение'
+              }
+            }
+          ]
         },
         markers: {
           size: 0
@@ -54,29 +73,69 @@ export default {
           data: []
         }
       ],
+      timeArr: [],
       interval: null
     }
+  },
+  computed: {
+    ...mapGetters(['getMin', 'getMax'])
   },
   destroyed () {
     clearInterval(this.interval)
   },
   methods: {
     generateData () {
-      return Math.floor(Math.random() * 101)
+      const range = this.getMax * 0.9 - this.getMin * 1.1
+      const randomValue = Math.random() * range + this.getMin * 1.1
+      const shouldExceedMax = Math.random() < 0.9
+
+      if (shouldExceedMax) {
+        return Math.floor(Math.min(randomValue, this.getMax))
+      } else {
+        return Math.ceil(Math.max(randomValue, this.getMin))
+      }
     },
     updateChart () {
-      const newData = [...this.series[0].data, this.generateData()]
-      const newCategories = [...this.chartOptions.xaxis.categories, this.getElapsedTime()]
+      const newData = [null, ...this.series[0].data.filter(data => data !== null), this.generateData(), null]
+      this.timeArr.push(this.getElapsedTime())
+      const newCategories = this.timeArr
+      this.timeArr = this.timeArr.slice(-19)
+
       this.series = [
         {
           name: 'series-1',
-          data: newData.slice(-8)
+          data: newData.slice(-19)
         }
       ]
       this.chartOptions = {
         ...this.chartOptions,
+        yaxis: {
+          ...this.chartOptions.yaxis,
+          min: Math.floor(Number(this.getMin) * 0.8),
+          max: Math.ceil(Number(this.getMax) * 1.2),
+          annotations: {
+            yaxis: [
+              {
+                y: this.getMin,
+                borderColor: '#FF0000',
+                borderWidth: 1,
+                label: {
+                  text: 'Минимальное значение'
+                }
+              },
+              {
+                y: this.getMax,
+                borderColor: '#FF0000',
+                borderWidth: 1,
+                label: {
+                  text: 'Максимальное значение'
+                }
+              }
+            ]
+          }
+        },
         xaxis: {
-          categories: newCategories.slice(-8)
+          categories: ['', ...newCategories, '']
         }
       }
       this.elapsedTime = this.getElapsedTime()
@@ -103,7 +162,7 @@ export default {
 
       this.interval = setInterval(() => {
         this.updateChart()
-      }, 3000)
+      }, 1000)
     },
     stopChart () {
       this.running = false
