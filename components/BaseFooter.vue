@@ -3,7 +3,8 @@
     <v-btn
       class="footer__btn footer__btn_back"
       :class="{
-        'opacity': $store.getters.getStatusApp === 1 }"
+        'opacity': $store.getters.getStatusApp === 1,
+      }"
       color="transparent"
       @click.prevent="previousStep()"
     >
@@ -20,23 +21,18 @@
 
     <v-btn
       :class="{
-        'footer__btn_deactive': $store.getters.getStatusApp === 3 && ($store.getters.getName.length < 3 || $store.getters.getPhone.length < 12),
-        'footer__btn_form': $store.getters.getStatusApp === 3 ,
+        'opacity': $store.getters.getStatusApp === 2,
+        'footer__btn_deactive': !$store.getters.getMin || !$store.getters.getMax || !$store.getters.getPersNumber || !$store.getters.getJump || ($store.getters.getMax && $store.getters.getMin && $store.getters.getMax - $store.getters.getMin < 0)
       }"
       class="footer__btn footer__btn_next"
-      :color="$store.getters.getStatusApp !== 3 ? 'transparent' : '#109CF8'"
       @click.prevent="nextStep()"
     >
-      <span v-if="$store.getters.getStatusApp !== 3" style="color: #109CF8 !important;">
+      <span class="footer__btn-text">
         Вперед
       </span>
-      <v-icon v-if="$store.getters.getStatusApp !== 3" class="footer__btn-icon" color="#109CF8">
+      <v-icon class="footer__btn-icon" color="#109CF8">
         mdi-arrow-right
       </v-icon>
-      <div v-if="$store.getters.getStatusApp === 3" class="footer__text-submit" style="color: #fff !important;">
-        Отправить
-      </div>
-      <img v-if="$store.getters.getStatusApp === 3" class="footer__btn-icon-submit" :src="require(`~/assets/images/submit-icon.svg`)">
     </v-btn>
   </footer>
 </template>
@@ -44,14 +40,8 @@
 <script>
 export default {
   methods: {
-    async nextStep () {
-      if (this.$store.getters.getStatusApp < 3) {
-        this.$store.commit('setStatusApp', this.$store.getters.getStatusApp + 1)
-      } else {
-        // не дожидаясь ответа листаем
-        this.$store.commit('setStatusApp', 4)
-        await this.$store.dispatch('submit')
-      }
+    nextStep () {
+      this.$store.commit('setStatusApp', this.$store.getters.getStatusApp + 1)
     },
     previousStep () {
       this.$store.commit('setStatusApp', this.$store.getters.getStatusApp - 1)
@@ -120,6 +110,11 @@ export default {
       pointer-events: none;
       border-color: var(--color-border-1) !important;
       background-color: var(--color-btn-deactive-1) !important;
+      .footer__btn-text,
+      .footer__btn-icon {
+        @include transition;
+        color: var(--color-text-white-1) !important;
+      }
     }
     span {
       display: none;

@@ -1,8 +1,8 @@
 export const state = () => ({
   persNumber: '',
-  min: 100,
-  max: 300,
-  jump: 50,
+  min: '',
+  max: '',
+  jump: '',
   statusApp: 1 // этапы работы приложения
 })
 
@@ -19,19 +19,19 @@ export const mutations = {
     state.persNumber = value
   },
   setMin: (state, value) => {
-    state.min = value
+    state.min = Number(value)
     if (!isNaN(state.max) && !isNaN(state.min) && Number(state.max) - Number(state.min) > 0 && !state.jump) {
       state.jump = state.max - state.min
     }
   },
   setMax: (state, value) => {
-    state.max = value
+    state.max = Number(value)
     if (!isNaN(state.max) && !isNaN(state.min) && Number(state.max) - Number(state.min) > 0 && !state.jump) {
       state.jump = state.max - state.min
     }
   },
   setJump: (state, value) => {
-    state.jump = value
+    state.jump = Number(value)
   },
   setStatusApp (state, value) {
     state.statusApp = value
