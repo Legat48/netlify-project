@@ -126,13 +126,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend (config) {
-      config.module.rules.push({
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /(node_modules)/
-      })
-    }
   }
   // Locales /импорт текстов
   // i18n

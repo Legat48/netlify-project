@@ -1,89 +1,114 @@
 <template>
-  <div class="test">
-    <canvas ref="chartCanvas" />
+  <div>
+    <button v-if="!running" @click="startChart">
+      Запустить график
+    </button>
+    <button v-if="running" @click="stopChart">
+      Остановить график
+    </button>
+    <client-only>
+      <div>
+        <VueApexCharts
+          ref="chart"
+          width="500"
+          type="line"
+          :options="chartOptions"
+          :series="series"
+        />
+      </div>
+    </client-only>
+    <div v-if="running">
+      Прошедшее время: {{ elapsedTime }}
+    </div>
   </div>
 </template>
 
 <script>
-import Chart from 'chart.js'
-
 export default {
+  components: {
+    VueApexCharts: () => import('vue-apexcharts')
+  },
   data () {
     return {
-      chart: null,
+      running: false,
+      startTime: null,
+      elapsedTime: '',
       chartOptions: {
-        responsive: true,
-        maintainAspectRatio: false
+        chart: {
+          id: 'vuechart-example'
+        },
+        xaxis: {
+          categories: []
+        },
+        yaxis: {
+          min: 0,
+          max: 100
+        },
+        markers: {
+          size: 0
+        }
       },
-      chartData: {
-        labels: [],
-        datasets: [
-          {
-            label: 'Values',
-            data: [],
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)'
-          }
-        ]
-      }
+      series: [
+        {
+          name: 'series-1',
+          data: []
+        }
+      ],
+      interval: null
     }
   },
-  mounted () {
-    this.$nextTick(() => {
-      this.createChart()
-      this.startSimulation()
-    })
+  destroyed () {
+    clearInterval(this.interval)
   },
   methods: {
-    createChart () {
-      const ctx = this.$refs.chartCanvas.getContext('2d')
-      this.chart = new Chart(ctx, {
-        type: 'line',
-        data: this.chartData,
-        options: this.chartOptions
+    generateData () {
+      return Math.floor(Math.random() * 101)
+    },
+    updateChart () {
+      const newData = [...this.series[0].data, this.generateData()]
+      const newCategories = [...this.chartOptions.xaxis.categories, this.getElapsedTime()]
+      this.series = [
+        {
+          name: 'series-1',
+          data: newData.slice(-8)
+        }
+      ]
+      this.chartOptions = {
+        ...this.chartOptions,
+        xaxis: {
+          categories: newCategories.slice(-8)
+        }
+      }
+      this.elapsedTime = this.getElapsedTime()
+
+      this.$nextTick(() => {
+        this.$refs.chart.updateOptions(this.chartOptions, false)
+        this.$refs.chart.updateSeries(this.series, false)
       })
     },
-    startSimulation () {
-      setInterval(() => {
-        const newValue = this.generateValue()
-        this.updateChart(newValue)
-        this.checkConditions(newValue)
-      }, 2000)
+    getElapsedTime () {
+      const currentTime = new Date().getTime()
+      const elapsedTime = currentTime - this.startTime
+      const minutes = Math.floor(elapsedTime / 60000)
+      const seconds = Math.floor((elapsedTime % 60000) / 1000)
+      return `${this.padNumber(minutes)}:${this.padNumber(seconds)}`
     },
-    generateValue () {
-      const { min, max, jump } = this.$store.state
-      const random = Math.random()
-      let newValue
-
-      if (random < 0.8) {
-        newValue = Math.random() * (max - min) + min
-      } else if (random < 0.9) {
-        newValue = Math.random() * (max - jump - min) + (max - jump)
-      } else {
-        newValue = Math.random() * (jump - min) + min
-      }
-
-      return newValue
+    padNumber (number) {
+      return number.toString().padStart(2, '0')
     },
-    updateChart (newValue) {
-      const time = new Date().toLocaleTimeString()
-      this.chart.data.labels.push(time)
-      this.chart.data.datasets[0].data.push(newValue)
-      this.chart.update()
-    },
-    checkConditions (newValue) {
-      const { min, max, jump } = this.$store.state
+    startChart () {
+      this.running = true
+      this.startTime = new Date().getTime()
+      this.updateChart()
 
-      if (Math.abs(newValue - min) > jump || Math.abs(newValue - max) > jump) {
-        console.error('Warning: Value exceeded jump range')
-      }
+      this.interval = setInterval(() => {
+        this.updateChart()
+      }, 3000)
+    },
+    stopChart () {
+      this.running = false
+      clearInterval(this.interval)
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.test {
-  width: 100%;
-}
-</style>

@@ -1,8 +1,8 @@
 export const state = () => ({
   persNumber: '',
-  min: 1,
-  max: 3,
-  jump: 2,
+  min: 100,
+  max: 300,
+  jump: 50,
   statusApp: 1 // этапы работы приложения
 })
 
