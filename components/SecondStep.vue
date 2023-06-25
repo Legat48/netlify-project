@@ -77,7 +77,8 @@ export default {
           }
         },
         stroke: {
-          curve: 'smooth'
+          curve: 'smooth',
+          colors: ['#109CF8', '#FF0000', '#FF0000']
         },
         markers: {
           size: 0
@@ -91,7 +92,15 @@ export default {
       },
       series: [
         {
-          name: 'series-1',
+          name: 'Данные',
+          data: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+        },
+        {
+          name: 'min',
+          data: []
+        },
+        {
+          name: 'max',
           data: []
         }
       ],
@@ -106,27 +115,57 @@ export default {
     clearInterval(this.interval)
   },
   methods: {
-    generateData () {
-      const range = this.getMax * 0.9 - this.getMin * 1.1
-      const randomValue = Math.random() * range + this.getMin * 1.1
-      const shouldExceedMax = Math.random() < 0.9
-
-      if (shouldExceedMax) {
-        return Math.floor(Math.min(randomValue, this.getMax))
-      } else {
-        return Math.ceil(Math.max(randomValue, this.getMin))
+    generateRandomValue (previousValue) {
+      const delta = (this.getMax * 1.1 - this.getMin * 0.8) / 2
+      if (!previousValue) {
+        return this.getMin + delta
       }
+
+      const probability = Math.random()
+      let randomValue
+
+      if (probability < 0.8) {
+        // Вероятность 80% для изменения значения не более чем на 5%
+        const minChange = previousValue - 0.05 * previousValue
+        const maxChange = previousValue + 0.05 * previousValue
+        randomValue = Math.random() * (maxChange - minChange) + minChange
+      } else {
+        // Вероятность 20% для полностью случайного значения
+        const minValue = Math.max(this.getMax * 1.1, previousValue - 0.1 * delta)
+        const maxValue = Math.min(this.getMin * 0.8, previousValue + 0.1 * delta)
+        randomValue = Math.random() * (maxValue - minValue) + minValue
+      }
+
+      return Math.round(randomValue)
     },
     updateChart () {
-      const newData = [null, ...this.series[0].data.filter(data => data !== null), this.generateData(), null]
+      let index = 2
+      let value = this.series[0].data[this.series[0].data.length - index]
+      while (!value) {
+        index++
+        value = this.series[0].data[this.series[0].data.length - index]
+        if (index > 19) { break }
+      }
+      this.series[0].data = [...this.series[0].data.filter(data => data !== ''), this.generateRandomValue(value)]
+      const newData = ['', ...this.series[0].data, '']
       this.timeArr.push(this.getElapsedTime())
       const newCategories = this.timeArr
       this.timeArr = this.timeArr.slice(-19)
-
+      while (newData.length < 20) {
+        newData.push('')
+      }
       this.series = [
         {
-          name: 'series-1',
+          name: 'Данные',
           data: newData.slice(-19)
+        },
+        {
+          name: 'min-boundary',
+          data: Array(20).fill(this.getMin)
+        },
+        {
+          name: 'max-boundary',
+          data: Array(20).fill(this.getMax)
         }
       ]
       this.chartOptions = {
@@ -134,27 +173,7 @@ export default {
         yaxis: {
           ...this.chartOptions.yaxis,
           min: Math.floor(Number(this.getMin) * 0.8),
-          max: Math.ceil(Number(this.getMax) * 1.2),
-          annotations: {
-            yaxis: [
-              {
-                y: this.getMin,
-                borderColor: '#FF0000',
-                borderWidth: 1,
-                label: {
-                  text: 'Минимальное значение'
-                }
-              },
-              {
-                y: this.getMax,
-                borderColor: '#FF0000',
-                borderWidth: 1,
-                label: {
-                  text: 'Максимальное значение'
-                }
-              }
-            ]
-          }
+          max: Math.ceil(Number(this.getMax) * 1.1)
         },
         xaxis: {
           categories: ['', ...newCategories, '']
