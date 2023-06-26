@@ -403,15 +403,21 @@ export default {
     overflow: hidden;
     background-color: transparent;
     @include transition;
+    @media (min-width: 768px) {
+      &_warning {
+        animation-name: shake;
+        animation-duration: 1s;
+        animation-iteration-count: 3;
+      }
+      &_error {
+        animation: shake 0.5s infinite;
+      }
+    }
     &_warning {
       background-color: var(--color-warning);
-      animation-name: shake;
-      animation-duration: 1s;
-      animation-iteration-count: 3;
     }
     &_error {
       background-color: var(--color-alert);
-      animation: shake 0.5s infinite;
     }
   }
   &__chart-plug {

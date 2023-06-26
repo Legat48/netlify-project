@@ -5,8 +5,8 @@ export default {
   target: 'static',
 
   head: {
-    titleTemplate: 'Ranks quiz',
-    title: 'Ranks quiz',
+    titleTemplate: 'Тестовое задание',
+    title: 'Тестовое задание',
     htmlAttrs: {
       lang: 'ru'
     },
