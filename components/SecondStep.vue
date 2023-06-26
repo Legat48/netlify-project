@@ -402,8 +402,8 @@ export default {
     border-radius: 10px;
     overflow: hidden;
     background-color: transparent;
-    @include transition;
     @media (min-width: 768px) {
+      @include transition;
       &_warning {
         animation-name: shake;
         animation-duration: 1s;
