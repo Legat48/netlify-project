@@ -1,43 +1,37 @@
 export const state = () => ({
-  persNumber: '',
-  min: '',
-  max: '',
-  jump: '',
-  statusApp: 1 // этапы работы приложения
+  loading: false,
+  axiosId: 1,
+  token: '',
+  user: null,
+  dialogOpen: false
 })
 
 export const getters = {
-  getPersNumber: state => state.persNumber,
-  getMin: state => state.min,
-  getMax: state => state.max,
-  getJump: state => state.jump,
-  getStatusApp: state => state.statusApp
+  getLoading: state => state.loading,
+  getUser: state => state.user,
+  getDialogStatus: state => state.dialogOpen
 }
 
 export const mutations = {
-  setPersNumber: (state, value) => {
-    state.persNumber = value
+  closeDialog (state) {
+    state.dialogOpen = false
   },
-  setMin: (state, value) => {
-    state.min = Number(value)
-    if (!isNaN(state.max) && !isNaN(state.min) && Number(state.max) - Number(state.min) > 0 && !state.jump) {
-      state.jump = state.max - state.min
+  openDialog (state) {
+    state.dialogOpen = false
+  },
+  setAxiosId (state) {
+    state.axiosId++
+  },
+  setUser: (state, data) => {
+    state.user = data
+    if (data && data.auth_token) {
+      state.token = data.auth_token
+    } else {
+      state.token = ''
     }
   },
-  setMax: (state, value) => {
-    state.max = Number(value)
-    if (!isNaN(state.max) && !isNaN(state.min) && Number(state.max) - Number(state.min) > 0 && !state.jump) {
-      state.jump = state.max - state.min
-    }
-  },
-  setJump: (state, value) => {
-    state.jump = Number(value)
-  },
-  setStatusApp (state, value) {
-    state.statusApp = value
-    if (state.statusApp < 1) {
-      state.statusApp = 1
-    }
+  setLoading (state, value) {
+    state.loading = value
   }
 }
 

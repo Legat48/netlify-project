@@ -1,0 +1,63 @@
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "mat_types": [
+      {
+        "type_id": 1,
+        "type_name": "Тип материала №1"
+      },
+      {
+        "type_id": 2,
+        "type_name": "Тип материала №2"
+      },
+      {
+        "type_id": 3,
+        "type_name": "Тип материала №3"
+      },
+      {
+        "type_id": 4,
+        "type_name": "Тип материала №4"
+      }
+    ],
+    "units": [
+      {
+        "unit_id": 1,
+        "unit_name": "Агрегат №1",
+        "plant_id": 1
+      },
+      {
+        "unit_id": 2,
+        "unit_name": "Агрегат №2",
+        "plant_id": 2
+      },
+      {
+        "unit_id": 3,
+        "unit_name": "Агрегат №3",
+        "plant_id": 3
+      },
+      {
+        "unit_id": 4,
+        "unit_name": "Агрегат №4",
+        "plant_id": 4
+      },
+      {
+        "unit_id": 5,
+        "unit_name": "Агрегат №5",
+        "plant_id": 5
+      },
+      {
+        "unit_id": 6,
+        "unit_name": "Агрегат №6",
+        "plant_id": 6
+      }
+    ],
+    "unit_groups": [
+      {
+        "group_id": 7,
+        "group_name": "Агрегат №7",
+        "unit_id": 7
+      }
+    ]
+  },
+  "id": "123"
+}

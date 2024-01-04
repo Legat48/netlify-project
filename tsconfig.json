@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "lib": [
       "ESNext",
@@ -29,8 +29,13 @@
       "@nuxtjs/axios",
       "@types/node",
       "@nuxtjs/i18n",
+      "nuxt"
     ]
   },
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts"
+  ],
   "exclude": [
     "node_modules",
     ".nuxt",

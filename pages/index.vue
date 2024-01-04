@@ -1,17 +1,11 @@
 <!-- eslint-disable vue/html-indent -->
 <template>
-  <v-app>
-    <main class="app">
-      <div class="app__wrap">
-        <BaseHeader class="app__header" />
-        <div class="app__content-wrap">
-          <FirstStep v-if="$store.getters.getStatusApp === 1" />
-          <SecondStep v-else />
-        </div>
-        <BaseFooter v-if="$store.getters.getStatusApp !== 4" class="app__footer" />
-      </div>
-    </main>
-  </v-app>
+  <div v-if="!$store.getters.getLoading" class="content">
+    <!-- ?? -->
+  </div>
+  <div v-else class="content content_pre-loaded ">
+    <PreLoaded />
+  </div>
 </template>
 
 <script>
@@ -23,55 +17,39 @@ export default {
   computed: {
   },
   mounted () {
-
+    this.$store.commit('setLoading', false)
+    document.addEventListener('click', (event) => {
+      const clickedDialog = event.currentTarget.querySelector('.modal-form')
+      if (clickedDialog && event.target === clickedDialog) {
+        this.$store.commit('closeDialog')
+      }
+    })
   },
   methods: {
-    submitSucess () {
-      this.$store.commit('setStatusApp', 4)
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.content {
+  padding: 25px 39px;
   width: 100%;
-  min-height: 100vh;
-  background: rgba(20,22,25,1);
-  background: linear-gradient(150deg, rgba(0,191,255,1) 0%, rgba(20,22,25,1) 25%,  rgba(20,22,25,1) 50%,  rgba(20,22,25,1) 75%, rgba(0,191,255,1) 100%);
-  &__wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: sizeIncr(8, 27) sizeIncr(8, 75);
-    width: sizeIncr(328, 1200);
-    max-width: #{$maxvw}px;
-    min-height: sizeIncr(608, 743);
-    border-radius: 13px;
-    background-color: #fff;
-  }
-  &__content-wrap {
-    margin-bottom: auto;
-  }
-  &__header {
-    margin-bottom: sizeIncr(15, 40);
-    padding: 0 sizeIncr(0, 22);
-  }
-  &__header,
-  &__footer {
-    width: 100%;
-  }
-  &__amoform {
-    width: 100%;
+  height: calc(100vh - var(--height-header));
+  background-color: var(--color-bg-1);
+  &_pre-loaded {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-
+  &__table {
+    border-radius: 12px;
+    width: 100%;
+    height: calc(100vh - var(--height-header) - 78px);
+    background-color: var(--color-bg-white-1);
+    box-shadow: 1px 4px 4px 2px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+  }
 }
-
 </style>

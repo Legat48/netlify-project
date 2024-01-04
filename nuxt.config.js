@@ -1,12 +1,15 @@
 export default {
   ssr: true,
 
+  router: {
+    base: '/ods/'
+  },
+
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
 
   head: {
-    titleTemplate: 'Тестовое задание',
-    title: 'Тестовое задание',
+    title: 'ОДС',
     htmlAttrs: {
       lang: 'ru'
     },
@@ -17,7 +20,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/ods/favicon.ico' }
     ]
   },
   server: {
@@ -27,7 +30,6 @@ export default {
   css: [
     '~/assets/fonts/Inter/inter.css',
     '~/assets/fonts/DelaGothicOne.css',
-    'flag-icons/css/flag-icons.css',
     '~/assets/scss/style.scss'
   ],
   // Путь к резервному HTML-файлу
@@ -36,7 +38,7 @@ export default {
   },
   render: {
     bundleRenderer: {
-      shouldPreload: (file, type) => {
+      shouldPreload: (_file, type) => {
         return ['script', 'style', 'font'].includes(type)
       }
     }
@@ -48,10 +50,15 @@ export default {
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
-    true: true
-    // dirs: [
-    //   '~/components'
-    // ]
+    true: true,
+    dirs: [
+      '~/components',
+      '~/components/items',
+      '~/components/smelting',
+      '~/components/svg',
+      '~/components/acv',
+      '~/components/table'
+    ]
   },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -70,27 +77,24 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/style-resources',
-    ['nuxt-stripe-module', {
-      publishableKey: 'pk_live_51LrP3yKFgb67L964suZAG44GW77SOXz8jLa66Y7luGgbK05ynj4VtrksTQMIT03p3VnEdAizwVJtJd3KDujPhOmc00Xg4oawHA'
-    }],
     '@nuxtjs/axios'
     // '@nuxtjs/i18n'
   ],
   plugins: [
+    '~/plugins/foo.js',
+    { src: '~/plugins/ripple.js', mode: 'client' }
   ],
-
   publicRuntimeConfig: {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/'
+    baseURL: '/ods/'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ['~/assets/scss/variables.scss'],
     theme: {
       dark: false,
       themes: {

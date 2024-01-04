@@ -6,4 +6,18 @@
   cursor: pointer;
   background-color: transparent;
   @include transition;
+  &_standard {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 12px;
+    padding: 8px 14px;
+    font-weight: 500;
+    border-radius: 12px;
+    color: var(--color-text-white-1);
+    background-color: var(--color-btn-1);
+    box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.15);
+  }
+  &_reset {
+    background-color: var(--color-error);
+  }
 }

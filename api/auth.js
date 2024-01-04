@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { apiService } from '@/api/'
-
+/**
+  * функция складывующая два числа31222
+  * @param {number} a - первое числоццц
+*/
 class AuthService {
   login (user) {
     return apiService
@@ -27,7 +30,6 @@ class AuthService {
         if (response.data.access) {
           user.access = response.data.access
           localStorage.setItem('user', JSON.stringify(user))
-          // console.log('token refreshed')
           return response.data.access
         }
       } catch {
@@ -41,7 +43,6 @@ class AuthService {
   }
 
   async verify (data) {
-    // console.log(data)
     const config = {
       method: 'get',
       url: `${process.env.API_ENDPOINT}/verify/${data}`,
@@ -67,7 +68,6 @@ class AuthService {
   }
 
   async resetPassword (data) {
-    // console.log(data)
     const config = {
       method: 'post',
       url: `${process.env.API_ENDPOINT}/reset/${window.$nuxt.$store.state.user.uuidPasswordReset}/`,
@@ -96,7 +96,6 @@ class AuthService {
   }
 
   async personalDataChange (data) {
-    // console.log('personal')
     const response = await apiService
       .post('profile/', data)
       .then((response) => {

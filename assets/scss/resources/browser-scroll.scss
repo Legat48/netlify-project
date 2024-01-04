@@ -2,19 +2,19 @@
    сейчас только для Firefox */
    * {
     scrollbar-width: thin;
-    scrollbar-color:  transparent;
+    scrollbar-color:  var(--color-bg-1);
   }
 
   /* для Chrome/Edge/Safari */
   *::-webkit-scrollbar {
-    height: 8px;
+    height: 12px;
     width: 8px;
   }
   *::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--color-bg-1);
   }
   *::-webkit-scrollbar-thumb {
-    background-color: #E1E1E1;
+    background-color: var(--color-btn-1);
     border-radius: 5px;
-    border: 3px solid transparent;
+    border: 0px solid var(--color-bg-1);
   }

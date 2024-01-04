@@ -23,6 +23,9 @@ html {
   @media (min-width: #{$maxvw + 1}px) {
     --vw : #{$maxvw}px;
   }
+  @media (max-width: #{$minvw}px) {
+    --vw : #{$minvw}px;
+  }
 }
 
 html body {
@@ -30,19 +33,16 @@ html body {
   margin: 0 auto;
   font-family: 'Inter', sans-serif !important;
   margin: 0 auto;
-  max-width: 1920px;
-  min-width: 360px;
-  background-color:rgba(20, 22, 25, 0.08);
-}
-.v-application {
-  font-family: 'Inter', sans-serif !important;
+  max-width: #{$maxvw}px;
+  min-width: #{$minvw}px !important;
+  color: var(--color-text-1);
+  background-color:var(--color-bg-1);
 }
 
+.theme--light.v-application::after {
+  background: none !important;
+}
 html { overflow-y: auto !important}
-
-.opacity {
-  opacity: 0;
-}
 
 p,
 h1,
@@ -72,8 +72,6 @@ div .visually-hidden {
   overflow: hidden;
 }
 
-.svg-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.deactive {
+  pointer-events: none;
 }

@@ -1,6 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
-
+/**
+  * функция складывующая два числа31222
+  * @param {number} a - первое числоццц
+*/
 export const baseURL = process.env.API_ENDPOINT || ''
 export function paramsSerializer (params) {
   function filterNonNull (obj) {
