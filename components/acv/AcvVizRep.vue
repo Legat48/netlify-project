@@ -25,9 +25,9 @@
     <div class="wrap-viz__sub-wrap wrap-viz__sub-wrap_trays">
       Место под Дополнительные лотки
     </div>
-    <SKImage class="wrap-viz__sub-wrap wrap-viz__sub-wrap_ladle">
+    <AcvSKImage class="wrap-viz__sub-wrap wrap-viz__sub-wrap_ladle">
       <!-- сталеразливочный ковш -->
-    </SKImage>
+    </AcvSKImage>
     <div class="wrap-viz__sub-wrap wrap-viz__sub-wrap_save">
       Временно свободное место
     </div>

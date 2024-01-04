@@ -13,7 +13,12 @@
       Материала  {{ task.substanceName }}
     </div> -->
     <div class="task__text">
-      В бункер {{ task.idEnd }}
+      <template v-if="task.idEnd !== 61">
+        В бункер {{ task.idEnd }}
+      </template>
+      <template v-if="task.idEnd === 61">
+        В ковш
+      </template>
     </div>
     <v-btn class="task__btn-icon" icon text @click="delTask()">
       <v-icon class="task__icon">

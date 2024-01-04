@@ -33,7 +33,12 @@
         <div class="modal-form__content">
           <div class="modal-form__text">
             Из бункера {{ dialogObg.idStart }}
-            В бункер {{ dialogObg.idEnd }}
+            <template v-if="dialogObg.idEnd !== 61">
+              В бункер {{ dialogObg.idEnd }}
+            </template>
+            <template v-if="dialogObg.idEnd === 61">
+              В ковш
+            </template>
           </div>
           <!--
           <div class="modal-form__wrap-buttons">
