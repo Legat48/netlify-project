@@ -2,7 +2,7 @@ export default {
   ssr: true,
 
   router: {
-    base: '/ods/'
+    base: '/'
   },
 
   // Target: https://go.nuxtjs.dev/config-target
@@ -20,7 +20,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/ods/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
   server: {
