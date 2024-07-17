@@ -80,6 +80,9 @@ export default {
     font-size: 36px;
     font-weight: 700;
     color: var(--color-text-1);
+    @media (max-width: 700px) {
+      font-size: 18px;
+    }
   }
   &__logo-icon {
     margin-right: 30px;
