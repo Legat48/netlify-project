@@ -29,6 +29,6 @@
   font-style:  normal;
   font-weight: 700;
   font-display: swap;
-  src: url("PT-Root-UI_Bold.woff2") format("woff2"),
-       url("PT-Root-UI_Bold.woff") format("woff");
+  src: url("pt-root-ui_bold.woff2") format("woff2"),
+       url("pt-root-ui_bold.woff") format("woff");
 }
