@@ -5,6 +5,12 @@
     </div>
     <div class="task__text">
       Из бункера {{ task.idStart }}
+      <template v-if="task.idEnd !== 61">
+        в {{ task.idEnd }}
+      </template>
+      <template v-if="task.idEnd === 61">
+        в ковш
+      </template>
     </div>
     <div class="task__text">
       Перегрузить {{ task.weight }}кг
@@ -12,19 +18,11 @@
     <!-- <div class="task__text">
       Материала  {{ task.substanceName }}
     </div> -->
-    <div class="task__text">
-      <template v-if="task.idEnd !== 61">
-        В бункер {{ task.idEnd }}
-      </template>
-      <template v-if="task.idEnd === 61">
-        В ковш
-      </template>
-    </div>
-    <v-btn class="task__btn-icon" icon text @click="delTask()">
+    <!-- <v-btn class="task__btn-icon" icon text @click="delTask()">
       <v-icon class="task__icon">
         mdi mdi-trash-can-outline
       </v-icon>
-    </v-btn>
+    </v-btn> -->
   </div>
 </template>
 <script>

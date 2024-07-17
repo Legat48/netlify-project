@@ -27,7 +27,10 @@ export default {
   },
   head () {
     return {
-      title: this.pageTitle
+      title: this.pageTitle,
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/ods/acv.ico' }
+      ]
     }
   },
   computed: {
@@ -42,9 +45,9 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  padding: 8px;
+  padding: 4px;
   width: 100%;
-  height: calc(100vh - var(--height-header));
+  height: 100vh;
   background-color: var(--color-bg-1);
   // overflow: hidden;
   &_pre-loaded {
@@ -54,7 +57,7 @@ export default {
   }
   &__wrap {
     width: 100%;
-    height: calc(100vh - var(--height-header) - 16px);
+    height: 100%;
     overflow: hidden;
     border-radius: 12px;
     background-color: var(--color-bg-white-1);

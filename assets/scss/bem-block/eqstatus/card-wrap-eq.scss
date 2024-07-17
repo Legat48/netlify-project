@@ -1,0 +1,38 @@
+.card-wrap-eq {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: auto;
+  width: 100%;
+  // background-color: var(--color-bg-1);
+  &__row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 40px 10px;
+    // margin-bottom: 10px;
+    border-radius: 4px;
+    // padding: 8px 10px 4px;
+    color: var(--color-text-1);
+    // background-color: #0B3461;
+    &:nth-child(2n) {
+      background-color: #E8F5FF;
+    }
+  }
+  &__title {
+    position: absolute;
+    inset: 4px auto auto 4px;
+    padding: 4px;
+    border: 1px solid var(--color-border-1);
+    border-radius: 4px;
+    font-size: 18px;
+  }
+  &__card-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    gap: 10px;
+    overflow: auto;
+  }
+}

@@ -54,7 +54,6 @@ export const testDataModifyMaterial = (data) => {
 
 export const testDataModifyBatch = (data) => {
   if (data) { // проверка на существование переданного объекта
-    // console.log('testDataModifyBatch', !data.id, (!data.id && data.id !== null),( data.id && typeof data.id !== 'number') )
     if (data.id !== null && typeof data.id !== 'number') { // проверка Ид партии.
       console.error('testDataModifyBatch', 'Ошибка с id', data.id)
       return false

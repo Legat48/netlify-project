@@ -44,7 +44,7 @@ export default {
   background-color: var(--color-bg-white-1);
   &__wrap {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 6px;
     width: 100%;
   }

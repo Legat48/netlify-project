@@ -1,7 +1,7 @@
 import extend from '../utils/extend-vue-app'
 export default function ({ app }) {
   extend(app, {
-    async mounted () {
+    mounted () {
       // авторизация через локалсторадж
       // await this.$store.dispatch('fetchLogin')
       // если авторизован:

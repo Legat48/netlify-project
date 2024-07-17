@@ -20,7 +20,6 @@
             </h2>
           </div>
           <button
-            v-ripple
             class="modal-form__close"
             @click.prevent="dialogOpen = false"
           >
@@ -50,23 +49,26 @@
             />
           </div> -->
           <BaseLabel
+            v-if="showWeight"
             v-model="weight"
             :title="'Вес*'"
             :help="'Введите вес который нужно перегрузить'"
           />
-          <v-slider
+          <!-- <v-slider
+            v-if="showWeight"
+
             v-model="weight"
             thumb-label="always"
             color="#3FA6FA"
             :max="dialogObg.weight"
             min="1"
-          />
+          /> -->
         </div>
         <div class="modal-form__footer">
-          <button ref="submitButton" v-ripple class="modal-form__btn btn" :class="{'modal-form__btn_disabled': !valid }" @click="submit()">
+          <button ref="submitButton" class="modal-form__btn btn" :class="{'modal-form__btn_disabled': !valid }" @click="submit()">
             Создать
           </button>
-          <button v-ripple class="modal-form__btn modal-form__btn_cancel btn" @click.prevent="dialogOpen = false">
+          <button class="modal-form__btn modal-form__btn_cancel btn" @click.prevent="dialogOpen = false">
             Отмена
           </button>
         </div>
@@ -103,6 +105,14 @@ export default {
     valid () {
       // 1
       return true
+    },
+    showWeight () {
+      /**
+        * функция складывующая два числа31222
+        * @param {Array} arr - массив бункеров из которых возможно дозировать вес
+      */
+      const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      return !!arr.find(e => e === Number(this.dialogObg?.idStart))
     }
   },
   watch: {
@@ -127,7 +137,7 @@ export default {
         id: findMissingId(this.$store.getters['acv/getTasks']),
         idStart: this.dialogObg.idStart,
         idEnd: this.dialogObg.idEnd,
-        weight: Number(this.weight),
+        weight: this.showWeight ? Number(this.weight) : this.dialogObg.weight,
         substanceId: this.dialogObg.substanceArr.find(e => e.id === this.selectedMaterial).id,
         substanceName: this.dialogObg.substanceArr.find(e => e.id === this.selectedMaterial).name
       }

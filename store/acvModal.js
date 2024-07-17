@@ -22,6 +22,7 @@ export const mutations = {
     state.dialogAddTaskObg = {}
   },
   SET_DIALOG_OBG (state, data) {
+    data.weight = data.substanceArr.reduce((sum, substance) => sum + substance.weight, 0)
     state.dialogAddTaskObg = data
   }
 }

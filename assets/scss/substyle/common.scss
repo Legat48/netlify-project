@@ -31,12 +31,17 @@ html {
 html body {
   position: relative;
   margin: 0 auto;
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'pt', sans-serif !important;
   margin: 0 auto;
   max-width: #{$maxvw}px;
   min-width: #{$minvw}px !important;
   color: var(--color-text-1);
   background-color:var(--color-bg-1);
+}
+
+.v-application {
+  font-family: 'pt', sans-serif !important;
+  line-height: 1.5;
 }
 
 .theme--light.v-application::after {
