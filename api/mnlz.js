@@ -20,7 +20,7 @@ class MnlzApi {
     }
     try {
       // const response = await fetch(`${apiUrl}DataHub/DataHubSrv`, head)
-      const response = await fetch(`${apiUrl}ods/mnlzArr${lang}.json`)
+      const response = await fetch(`${apiUrl}mnlzArr${lang}.json`)
 
       const responseData = await response.json()
       return responseData // для офлайн разработки
