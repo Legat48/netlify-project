@@ -5,10 +5,16 @@
   padding: 8px;
   margin-bottom: 10px;
   // border: 2px solid var(--color-border-1);
+  border: 2px solid transparent;
+
   border-radius: 4px;
   color: var(--color-text-1);
   background-color: var(--color-bg-1);
   box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.15);
+  @include transition;
+  &_active {
+    border: 2px solid var(--color-border-3);
+  }
   &__title-wrap {
     display: flex;
     justify-content: space-between;
@@ -46,6 +52,7 @@
     background-color: var(--color-bg-white-1);
     @include transition;
     &_ok {
+      border: 2px solid var(--color-border-3);
       background-color: var(--color-update-1);
       .card-mnlz__label-title {
         background-color: var(--color-update-1);

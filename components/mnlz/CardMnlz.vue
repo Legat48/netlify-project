@@ -1,5 +1,5 @@
 <template>
-  <div class="card-mnlz">
+  <div class="card-mnlz" :class="{'card-mnlz_active': edit}">
     <div class="card-mnlz__title-wrap">
       <div class="card-mnlz__title">
         {{ card.name }}
@@ -55,14 +55,14 @@
           <svg
             v-if="copyObg"
             class="card-mnlz__submit-svg"
+            width="20.000000"
+            height="18.000000"
+            viewBox="0 0 20 18"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            width="17.599998"
-            height="13.400024"
-            viewBox="0 0 17.6 13.4"
             xmlns:xlink="http://www.w3.org/1999/xlink"
           >
-            <path id="Vector" d="M5.6 10.6L1.4 6.4L0 7.79L5.6 13.4L17.6 1.4L16.2 0L5.6 10.6Z" fill="#fff" fill-opacity="1.000000" fill-rule="nonzero" />
+            <path id="Icon (Stroke)" d="M8.25 2.07C7.3 2 6.09 2 4.39 2L1 2C0.44 2 0 1.55 0 1C0 0.44 0.44 0 1 0L4.44 0C6.08 0 7.38 0 8.42 0.08C9.48 0.17 10.37 0.35 11.17 0.76C12.49 1.43 13.56 2.5 14.23 3.82C14.64 4.62 14.82 5.51 14.91 6.57C15 7.61 15 8.91 15 10.55L15 14.58L18.29 11.29C18.68 10.9 19.31 10.9 19.7 11.29C20.09 11.68 20.09 12.31 19.7 12.7L14.7 17.7C14.51 17.89 14.26 18 14 18C13.73 18 13.48 17.89 13.29 17.7L8.29 12.7C7.9 12.31 7.9 11.68 8.29 11.29C8.68 10.9 9.31 10.9 9.7 11.29L13 14.58L13 10.6C13 8.9 12.99 7.69 12.92 6.74C12.84 5.8 12.69 5.2 12.45 4.72C11.97 3.78 11.21 3.02 10.27 2.54C9.79 2.3 9.19 2.15 8.25 2.07Z" fill="#fff" fill-opacity="1.000000" fill-rule="evenodd" />
           </svg>
         </button>
         <div class="card-mnlz__sub-title">
