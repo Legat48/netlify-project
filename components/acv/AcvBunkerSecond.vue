@@ -38,7 +38,6 @@ export default {
   color: var(--color-text-1);
   background-color: var(--color-bg-white-1);
   font-size: sizeIncr(12, 14);
-  border-top: 2px solid var(--color-border-1);
   &__group {
     display: flex;
     justify-content: center;

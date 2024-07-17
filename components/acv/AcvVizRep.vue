@@ -52,16 +52,16 @@ export default {
 <style lang="scss" scoped>
 .wrap-viz {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1.5fr;
   grid-template-rows: 1fr 1fr 0.2fr 1fr 1fr 2.4fr;
   gap: 0px 0px;
   grid-template-areas:
-    "first first first first first first first"
-    "second second second second tasks tasks tasks"
-    "conveyor conveyor conveyor conveyor tasks tasks tasks"
-    "third third third third tasks tasks tasks"
-    "fourth fourth fourth fourth tasks tasks tasks"
-    "trays ladle ladle save tasks tasks tasks";
+    "first first first first first"
+    "second second second second tasks"
+    "conveyor conveyor conveyor conveyor tasks"
+    "third third third third tasks"
+    "fourth fourth fourth fourth tasks"
+    "trays ladle ladle save tasks";
   width: 100%;
   height: calc(100vh - var(--height-header) - 20px);
   color: var(--color-text-1);
@@ -74,14 +74,11 @@ export default {
     &_bunkers-second { grid-area: second;}
     &_conveyor {
       grid-area: conveyor;
-      padding: 3px;
-      border-top: 2px solid var(--color-border-1);
-      border-bottom: 2px solid var(--color-border-1);
+      padding: 0 6px;
     }
     &_tasks { grid-area: tasks; }
     &_bunkers-third { grid-area: third; }
     &_bunkers-fourth {
-      border-top: 2px solid var(--color-border-1);
       grid-area: fourth;
     }
     &_ladle { grid-area: ladle;}
@@ -132,8 +129,8 @@ export default {
   &__conveyor-item {
     border: 2px solid var(--color-border-2);
     border-radius: 100px;
-    height: 10px;
-    width: 10px;
+    height: 15px;
+    width: 15px;
   }
 }
 </style>

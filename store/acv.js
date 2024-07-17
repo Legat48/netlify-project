@@ -17,7 +17,7 @@ export const state = () => ({
       idStart: 1,
       idEnd: 41,
       substanceId: 2,
-      substanceName: 'FeSi1',
+      substanceArr: ['FeSi1'],
       weight: 100,
       priority: 1
     }
@@ -26,8 +26,7 @@ export const state = () => ({
     idStart: '',
     idEnd: '',
     anchorsArr: [],
-    substanceName: '',
-    weight: 50,
+    substanceArr: '',
     priority: 1
   }
 })
@@ -50,6 +49,18 @@ export const mutations = {
   },
   setActiveAnchorsArr (state, arr) {
     state.activeTasks.anchorsArr = arr
+  },
+  setActiveSubstanceArr (state, arr) {
+    state.activeTasks.substanceArr = arr
+  },
+  resetActiveTask (state) {
+    state.activeTasks = {
+      idStart: '',
+      idEnd: '',
+      anchorsArr: [],
+      substanceArr: '',
+      priority: 1
+    }
   },
   pushNewTasks (state, task) {
     state.tasks.push(task)

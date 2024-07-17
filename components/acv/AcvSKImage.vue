@@ -1,6 +1,5 @@
 <template>
   <svg
-    v-ripple
     class="btn"
     width="323"
     height="303"
@@ -41,8 +40,7 @@ export default {
         const data = {}
         data.idStart = this.$store.getters['acv/getActiveTasks'].idStart
         data.idEnd = 61
-
-        data.substanceArr = this.$store.getters['acv/getBunkers'].bunkersFourth.bunkersArr.find(e => e.id === data.idStart).substanceArr
+        data.substanceArr = this.$store.getters['acv/getActiveTasks'].substanceArr
         this.$store.dispatch('acvModal/setDialogAddTaskObg', data)
       }
     }
@@ -51,8 +49,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .converter {
-//   width: 639px;
-//   height: 622px;
-// }
+.converter {
+  width: auto;
+  height: auto;
+}
 </style>

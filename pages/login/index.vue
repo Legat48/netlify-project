@@ -16,7 +16,6 @@ export default {
   computed: {
   },
   mounted () {
-    console.log('ENV', process.env.NUXT_ENV_API_URL)
     this.$store.commit('setLoading', false)
   },
   methods: {

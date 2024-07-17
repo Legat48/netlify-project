@@ -1,0 +1,35 @@
+.data-hab {
+  padding: 15px;
+  &__top-wrap {
+    display: flex;
+    flex-direction: column;
+    &_open {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 5px;
+      overflow: auto;
+      .data-hab__card {
+        border-bottom: 0px solid var(--color-border-1);
+        border-right: 1px solid var(--color-border-1);
+        margin-bottom: 5px;
+
+      }
+    }
+  }
+  &__card {
+    position: relative;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 42% 58%;
+    gap: 10px;
+    // border-radius: 4px;
+    padding: 8px;
+    border-bottom: 2px solid var(--color-border-1);
+    width: auto;
+    width: 520px;
+    min-width: 520px;
+    min-height: 60px;
+    background-color: var(--color-bg-white-1);
+    @include transition;
+  }
+}

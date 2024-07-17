@@ -1,7 +1,23 @@
 <!-- eslint-disable vue/html-indent -->
 <template>
   <div v-if="!$store.getters.getLoading" class="content">
-    <!-- ?? -->
+    <div class="content__wrap-link">
+      <nuxt-link class="content__link" :to="'/mnlz'">
+        Таблица для МНЛЗ
+      </nuxt-link>
+      <nuxt-link class="content__link" :to="'/mnlz/en'">
+        Table for CCM
+      </nuxt-link>
+      <!-- <nuxt-link class="content__link" :to="'/table-eq'">
+        Материалы ВПО
+      </nuxt-link>
+      <nuxt-link class="content__link" :to="'/user-stat'">
+        Статистика по пользователям
+      </nuxt-link>
+      <nuxt-link class="content__link" :to="'/json-info'">
+        Методы для получения данных из ОДС
+      </nuxt-link> -->
+    </div>
   </div>
   <div v-else class="content content_pre-loaded ">
     <PreLoaded />
@@ -10,6 +26,9 @@
 
 <script>
 export default {
+  asyncData ({ store }) {
+    store.commit('header/setHeaderTitle', 'Главная страница')
+  },
   data () {
     return {
     }
@@ -18,12 +37,6 @@ export default {
   },
   mounted () {
     this.$store.commit('setLoading', false)
-    document.addEventListener('click', (event) => {
-      const clickedDialog = event.currentTarget.querySelector('.modal-form')
-      if (clickedDialog && event.target === clickedDialog) {
-        this.$store.commit('closeDialog')
-      }
-    })
   },
   methods: {
   }
@@ -36,20 +49,22 @@ export default {
   width: 100%;
   height: calc(100vh - var(--height-header));
   background-color: var(--color-bg-1);
+
   &_pre-loaded {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  &__table {
-    border-radius: 12px;
-    width: 100%;
-    height: calc(100vh - var(--height-header) - 78px);
-    background-color: var(--color-bg-white-1);
-    box-shadow: 1px 4px 4px 2px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
+  &__wrap-link {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  &__link {
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-text-2);
+    text-decoration: underline;
   }
 }
 </style>

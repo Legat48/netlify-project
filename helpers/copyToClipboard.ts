@@ -7,7 +7,6 @@
  * @returns {Promise<boolean>} - Промис, который разрешается в `true`, если копирование прошло успешно, и в `false` в противном случае.
  */
 export default function copyToClipboard (text: string): Promise<boolean> {
-  console.log('copyToClipboard', text)
   return new Promise((resolve) => {
     const textarea = document.createElement('textarea')
     textarea.value = text
