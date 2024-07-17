@@ -2,7 +2,7 @@ export default {
   ssr: true,
 
   router: {
-    base: '/ods/'
+    base: '/'
   },
 
   target: 'server',
@@ -77,7 +77,7 @@ export default {
   },
 
   axios: {
-    baseURL: '/ods/'
+    baseURL: '/'
   },
 
   build: {
